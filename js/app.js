@@ -6,7 +6,7 @@
   }
   function remindText(list) {
     if (!list || !list.length) return "Yok";
-    return list.map((m) => (m % 60 === 0 ? m / 60 + " saat once" : m + " dk once")).join(", ");
+    return list.map((m) => (m >= 1440 && m % 1440 === 0 ? m / 1440 + " gün önce" : m % 60 === 0 ? m / 60 + " saat önce" : m + " dk önce")).join(", ");
   }
   function durationText(startLocal, endLocal) {
     const m = Math.max(0, Math.round((new Date(endLocal) - new Date(startLocal)) / 60000));
@@ -30,34 +30,34 @@
   }
   function readForm() {
     const reminders = $("reminders").value.split(/[,\s]+/).map((x) => parseInt(x, 10)).filter((n) => !isNaN(n) && n > 0);
-    return { title: $("title").value.trim() || "Yeni etkinlik", startLocal: $("start").value, endLocal: $("end").value, reminders: reminders.length ? reminders : [60], timezone: window.APP_CONFIG.timezone, raw: $("transcript").value };
+    return { title: $("title").value.trim() || "Yeni etkinlik", startLocal: $("start").value, endLocal: $("end").value, reminders: reminders.length ? reminders : [], timezone: window.APP_CONFIG.timezone, raw: $("transcript").value };
   }
   function parseNow() {
     const text = $("transcript").value.trim();
-    if (!text) { $("status").textContent = "Once konus veya metni yaz."; return; }
+    if (!text) { $("status").textContent = "Önce konuş veya metni yaz."; return; }
     applyDraft(TakvimParser.parseUtterance(text));
-    $("status").textContent = "Ozet hazir. Duzenleyip kaydedebilirsin.";
+    $("status").textContent = "Özet hazır. Düzeltip kaydedebilirsin.";
   }
   function startSpeech() {
     const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SR) { $("status").textContent = "Bu tarayicida canli dikte yok. Metni yaz."; $("transcript").focus(); return; }
+    if (!SR) { $("status").textContent = "Bu tarayıcıda canlı dikte yok. Metni yaz."; $("transcript").focus(); return; }
     rec = new SR(); rec.lang = "tr-TR"; rec.interimResults = true; rec.continuous = true;
     rec.onresult = function (e) { let t = ""; for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript + " "; $("transcript").value = t.trim(); };
-    rec.onerror = function (e) { $("status").textContent = "Dikte hatasi: " + e.error; stopSpeech(); };
+    rec.onerror = function (e) { $("status").textContent = "Dikte hatası: " + e.error; stopSpeech(); };
     rec.onend = function () { if (listening) rec.start(); };
     listening = true; rec.start();
     $("mic").classList.add("live"); $("mic").textContent = "Dinleniyor — durdur";
-    $("status").textContent = "Konus… bitince tekrar bas.";
+    $("status").textContent = "Konuş… bitince tekrar bas.";
   }
   function stopSpeech() {
     listening = false; try { rec && rec.stop(); } catch (e) {}
-    $("mic").classList.remove("live"); $("mic").textContent = "Konusmaya basla";
+    $("mic").classList.remove("live"); $("mic").textContent = "Konuşmaya başla";
     if ($("transcript").value.trim()) parseNow();
   }
   $("mic").onclick = function () { listening ? stopSpeech() : startSpeech(); };
   $("parseBtn").onclick = parseNow;
   $("sampleBtn").onclick = function () {
-    $("transcript").value = "Etkinlik olustur, yarin icin, saat 16:00 da. 1 saat sursun. Polonya ile toplantı etkinligin konusu. 1 saat once hatirlat.";
+    $("transcript").value = "Polonya ile toplantı etkinlik adı yarın saat 16:00 1 saat sürsün hatırlatma 1 gün 1 saat";
     parseNow();
   };
   ["title", "start", "end", "reminders"].forEach(function (id) {
