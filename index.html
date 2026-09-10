@@ -9,32 +9,34 @@
 <body>
   <div class="wrap">
     <h1>Sesli Takvim</h1>
-    <p class="sub">Konuş → özet → düzelt → kaydet</p>
+    <p class="sub">Konus, ozetle, Google Takvim'e yaz</p>
     <div class="card">
-      <button id="mic" class="mic" type="button">Konuşmaya başla</button>
-      <p class="status" id="status">Mikrofon ile dene veya örnek cümleyi kullan.</p>
-      <label for="transcript">Algılanan metin</label>
-      <textarea id="transcript" placeholder="Konuşma burada görünür."></textarea>
-      <button id="parseBtn" class="btn" type="button">Metni çöz</button>
-      <button id="sampleBtn" class="btn ghost" type="button">Örnek cümleyi dene</button>
+      <button id="mic" class="mic" type="button">Konusmaya basla</button>
+      <p class="status" id="status">Once Google'a baglan, sonra konus.</p>
+      <label for="transcript">Algilanan metin</label>
+      <textarea id="transcript" placeholder="Konusma burada gorunur."></textarea>
+      <button id="parseBtn" class="btn" type="button">Metni coz</button>
+      <button id="sampleBtn" class="btn ghost" type="button">Ornek cumleyi dene</button>
+      <button id="googleBtn" class="btn ghost" type="button">Google Takvim'e baglan</button>
     </div>
     <div class="card" id="editor" hidden>
-      <div class="result-head">Sonuç</div>
-      <div class="result-row"><div class="result-k">Etkinlik adı</div><div class="result-v" id="previewTitle">—</div></div>
-      <div class="result-row"><div class="result-k">Zaman</div><div class="result-v preview-when" id="previewWhen">—</div></div>
-      <div class="result-row"><div class="result-k">Süre</div><div class="result-v" id="previewDur">—</div></div>
-      <div class="result-row"><div class="result-k">Hatırlatma</div><div class="result-v" id="previewRemind">—</div></div>
-      <label for="title">Etkinlik adı</label>
+      <div class="result-head">Sonuc</div>
+      <div class="result-row"><div class="result-k">Etkinlik adi</div><div class="result-v" id="previewTitle">-</div></div>
+      <div class="result-row"><div class="result-k">Zaman</div><div class="result-v preview-when" id="previewWhen">-</div></div>
+      <div class="result-row"><div class="result-k">Sure</div><div class="result-v" id="previewDur">-</div></div>
+      <div class="result-row"><div class="result-k">Hatirlatma</div><div class="result-v" id="previewRemind">-</div></div>
+      <label for="title">Etkinlik adi</label>
       <input id="title" type="text" />
       <div class="row">
-        <div><label for="start">Başlangıç</label><input id="start" type="datetime-local" /></div>
-        <div><label for="end">Bitiş</label><input id="end" type="datetime-local" /></div>
+        <div><label for="start">Baslangic</label><input id="start" type="datetime-local" /></div>
+        <div><label for="end">Bitis</label><input id="end" type="datetime-local" /></div>
       </div>
-      <label for="reminders">Hatırlatma (dakika)</label>
+      <label for="reminders">Hatirlatma (dakika)</label>
       <input id="reminders" type="text" placeholder="60" />
       <button id="saveBtn" class="btn" type="button">Takvime kaydet</button>
     </div>
   </div>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/config.js"></script>
   <script src="js/parser.js"></script>
   <script src="js/calendar.js"></script>
