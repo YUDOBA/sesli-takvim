@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Sesli Takvim</title>
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>Sesli Takvim</h1>
+    <p class="sub">Konuş → özet → düzelt → kaydet</p>
+    <div class="card">
+      <button id="mic" class="mic" type="button">Konuşmaya başla</button>
+      <p class="status" id="status">Mikrofon ile dene veya örnek cümleyi kullan.</p>
+      <label for="transcript">Algılanan metin</label>
+      <textarea id="transcript" placeholder="Konuşma burada görünür."></textarea>
+      <button id="parseBtn" class="btn" type="button">Metni çöz</button>
+      <button id="sampleBtn" class="btn ghost" type="button">Örnek cümleyi dene</button>
+    </div>
+    <div class="card" id="editor" hidden>
+      <div class="result-head">Sonuç</div>
+      <div class="result-row"><div class="result-k">Etkinlik adı</div><div class="result-v" id="previewTitle">—</div></div>
+      <div class="result-row"><div class="result-k">Zaman</div><div class="result-v preview-when" id="previewWhen">—</div></div>
+      <div class="result-row"><div class="result-k">Süre</div><div class="result-v" id="previewDur">—</div></div>
+      <div class="result-row"><div class="result-k">Hatırlatma</div><div class="result-v" id="previewRemind">—</div></div>
+      <label for="title">Etkinlik adı</label>
+      <input id="title" type="text" />
+      <div class="row">
+        <div><label for="start">Başlangıç</label><input id="start" type="datetime-local" /></div>
+        <div><label for="end">Bitiş</label><input id="end" type="datetime-local" /></div>
+      </div>
+      <label for="reminders">Hatırlatma (dakika)</label>
+      <input id="reminders" type="text" placeholder="60" />
+      <button id="saveBtn" class="btn" type="button">Takvime kaydet</button>
+    </div>
+  </div>
+  <script src="js/config.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/calendar.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
